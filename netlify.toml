@@ -1,11 +1,9 @@
-# netlify.toml
-
 [build]
-  command = "pip install pipenv && pipenv install --deploy && pipenv run python app.py"
+  command = "pip install pipenv && pipenv install --deploy && pipenv run python server/app.py"
   publish = "public"  # Adjust this if your publish directory is different
 
 [dev]
-  command = "pipenv run python app.py"  # Command to start your dev server
+  command = "pipenv run python server/app.py"  # Command to start your dev server
 
 [[redirects]]
   from = "/*"
@@ -14,14 +12,3 @@
 
 [build.environment]
   PYTHON_VERSION = "3.8"  # Specify the Python version you're using
-
-# Remove any previous [[plugins]] sections
-
-# If you need to specify any custom headers, you can do so like this:
-# [[headers]]
-#   for = "/*"
-#   [headers.values]
-#     X-Frame-Options = "DENY"
-#     X-XSS-Protection = "1; mode=block"
-
-# Add any other necessary configurations here
