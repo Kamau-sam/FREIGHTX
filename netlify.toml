@@ -1,5 +1,5 @@
 [build]
-command = "pipenv install --deploy && python app.py"
+command = "pipenv install --deploy && pipenv run python app.py"
 
 [build.environment]
 PYTHON_VERSION = "3.8"
