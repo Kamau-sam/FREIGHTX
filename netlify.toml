@@ -1,8 +1,7 @@
 [build]
-  command = "pip install pipenv && pipenv install --deploy --system && python server/app.py"
+  command = "pip install pipenv && pipenv install --deploy --system && pip install sqlalchemy-serializer && python server/app.py"
   publish = "public"
 
-  
 [dev]
   command = "pipenv run python server/app.py"  # Command to start your dev server
 
