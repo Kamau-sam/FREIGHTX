@@ -1,5 +1,4 @@
-[build]
-command = "pipenv install --deploy && pipenv run python app.py"
-
-[build.environment]
-PYTHON_VERSION = "3.8"
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+  [plugins.inputs]
+    buildCommand = "pip install pipenv && pipenv install --deploy && pipenv run python app.py"
