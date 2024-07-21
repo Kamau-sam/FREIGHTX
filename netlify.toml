@@ -1,0 +1,5 @@
+[build]
+command = "pipenv install --deploy && python app.py"
+
+[build.environment]
+PYTHON_VERSION = "3.8"
