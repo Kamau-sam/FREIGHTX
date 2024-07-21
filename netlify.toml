@@ -1,7 +1,8 @@
 [build]
-  command = "pip install pipenv && pipenv install --deploy && pipenv run python server/app.py"
-  publish = "public"  # Adjust this if your publish directory is different
+  command = "pip install pipenv && pipenv install --deploy --system && python server/app.py"
+  publish = "public"
 
+  
 [dev]
   command = "pipenv run python server/app.py"  # Command to start your dev server
 
