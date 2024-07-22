@@ -1,11 +1,11 @@
 [build]
-  command = "pip install pipenv && pipenv install --deploy --system && pip install sqlalchemy-serializer"
-  functions = "server"
+  command = "pip install pipenv && pipenv install --deploy --system && pip install sqlalchemy-serializer && cd client && npm install && npm run build"
+  publish = "client/build"
 
 [[redirects]]
   from = "/*"
-  to = "/.netlify/functions/netlify"
+  to = "/index.html"
   status = 200
 
 [functions]
-  directory = "server"
+  directory = "server
