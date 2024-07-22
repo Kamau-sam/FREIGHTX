@@ -1,15 +1,10 @@
 [build]
   command = "pip install pipenv && pipenv install --deploy --system && pip install sqlalchemy-serializer"
-
-[build.environment]
-  PYTHON_VERSION = "3.8"
-
-[[plugins]]
-package = "@netlify/plugin-functions-install-core"
+  functions = "server"
 
 [[redirects]]
   from = "/*"
-  to = "/.netlify/functions/server"
+  to = "/.netlify/functions/netlify"
   status = 200
 
 [functions]
