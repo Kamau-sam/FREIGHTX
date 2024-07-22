@@ -211,7 +211,9 @@ def buy_ticket(ship_id):
             db.session.rollback()
             return jsonify({'error': str(e)}), 500
     else:
-        return make_response(jsonify({'error': 'Not enough tickets available'}), 400)
+       
+     return make_response(jsonify({'error': 'Not enough tickets available'}), 400)
 
-if __name__ == '__main__':
-    app.run(port=5555, debug=True)
+
+# if __name__ == "__main__":
+   #  app.run(host="0.0.0.0", port=5555, debug=True)
