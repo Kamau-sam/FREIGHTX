@@ -13,7 +13,4 @@ package = "@netlify/plugin-functions-install-core"
   status = 200
 
 [functions]
-O
-
-ssgEREWWW   Y
   directory = "server"
