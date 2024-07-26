@@ -8,4 +8,4 @@
   status = 200
 
 [functions]
-  directory = "server
+  directory = "server/functions"
