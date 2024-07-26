@@ -28,21 +28,26 @@ function Shiplist() {
         .then((data) => {
           console.log("Fetched ships:", data);
           setShips(data);
-          setFilteredShips(data); // Initially display all ships
+          // Filter ships based on the current category, if any
+          filterShips(data, category);
         })
         .catch((error) => {
           console.error("Error fetching ships:", error);
         });
     }
-  }, [id]);
+  }, [id, category]); // Add category to the dependency array
 
-  const handleFilter = (category) => {
-    setCategory(category);
+  const filterShips = (shipsList, category) => {
     if (category) {
-      setFilteredShips(ships.filter((ship) => ship.category === category));
+      setFilteredShips(shipsList.filter((ship) => ship.category === category));
     } else {
-      setFilteredShips(ships);
+      setFilteredShips(shipsList);
     }
+  };
+
+  const handleFilter = (newCategory) => {
+    setCategory(newCategory);
+    filterShips(ships, newCategory); // Apply filter based on the selected category
   };
 
   const handleViewShip = (shipId) => {
@@ -59,7 +64,9 @@ function Shiplist() {
       <h1 id="head">{portName} Ships</h1>
       <div className="filter-buttons">
         <button onClick={() => handleFilter("cargo")}>Cargo Ships</button>
-        <button onClick={() => handleFilter("passenger")}>Passenger Ships</button>
+        <button onClick={() => handleFilter("passenger")}>
+          Passenger Ships
+        </button>
         <button onClick={() => handleFilter(null)}>All Ships</button>
       </div>
       <div className="ships-container">
@@ -77,7 +84,11 @@ function Shiplist() {
             onClick={() => handleViewShip(ship.id)} // Navigate to ship details on click
           >
             <span>{ship.name}</span>
-            <span className={ship.category === "cargo" ? "maroon-text" : "green-text"}>
+            <span
+              className={
+                ship.category === "cargo" ? "maroon-text" : "green-text"
+              }
+            >
               {ship.category}
             </span>
             <span className={ship.port_from.name === portName ? "titles" : ""}>

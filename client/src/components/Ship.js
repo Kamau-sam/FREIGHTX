@@ -29,7 +29,6 @@ const contractors = [
 function Ship() {
   const { id } = useParams();
   const [ship, setShip] = useState(null);
-  const [user, setUser] = useState(null);
   const [quantity, setQuantity] = useState(0);
   const [cargoType, setCargoType] = useState(contractors[0]);
   const [shipImage, setShipImage] = useState("");
@@ -56,18 +55,7 @@ function Ship() {
         console.error("Error fetching ship:", error);
       });
 
-    fetch("/checksession")
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.error) {
-          console.error("Error fetching user details:", data.error);
-        } else {
-          setUser(data);
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching user:", error);
-      });
+    // Removed the fetch for /checksession as user state was not used
   }, [id]);
 
   const handleQuantityChange = (delta) => {
