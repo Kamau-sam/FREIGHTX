@@ -11,8 +11,8 @@ class User(db.Model, SerializerMixin):
     password = db.Column(db.String, nullable=False)
     balance = db.Column(db.Integer, nullable=False)
     passengers = db.relationship('Passenger', back_populates='user')
-    ships = association_proxy('passengers','ship')
-    transactions = db.relationship('Transaction', back_populates='user')  
+    ships = association_proxy('passengers', 'ship')
+    transactions = db.relationship('Transaction', back_populates='user')
 
     def __repr__(self):
         return f'<User {self.name}>'
@@ -31,7 +31,7 @@ class Passenger(db.Model, SerializerMixin):
 
     def __repr__(self):
         return f'<Passenger {self.ticket_number}>'
-    
+
 class Ship(db.Model):
     __tablename__ = 'ships'
     id = db.Column(db.Integer, primary_key=True)
@@ -43,7 +43,7 @@ class Ship(db.Model):
     category = db.Column(db.String(50), nullable=False)
     port_from_id = db.Column(db.Integer, db.ForeignKey('ports.id'), nullable=False)
     port_to_id = db.Column(db.Integer, db.ForeignKey('ports.id'), nullable=False)
-    price = db.Column(db.Integer, nullable=False)  
+    price = db.Column(db.Integer, nullable=False)
     contractor_id = db.Column(db.Integer, db.ForeignKey('contractors.id'), nullable=False)
     passengers = db.relationship('Passenger', back_populates='ship')
     port_from = db.relationship('Port', foreign_keys=[port_from_id], back_populates='ships_departing')
@@ -74,9 +74,10 @@ class Ship(db.Model):
             },
             'contractor_id': self.contractor_id
         }
+
 class Port(db.Model, SerializerMixin):
-    __tablename__ = "ports"   
-    serialize_rules = ('-ships_departing.port_from', '-ships_arriving.port_to') 
+    __tablename__ = "ports"
+    serialize_rules = ('-ships_departing.port_from', '-ships_arriving.port_to')
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False)
     location = db.Column(db.String, nullable=False)
@@ -86,7 +87,7 @@ class Port(db.Model, SerializerMixin):
 
     def __repr__(self):
         return f'<Port {self.name}>'
-  
+
 class Contractor(db.Model, SerializerMixin):
     __tablename__ = "contractors"
     serialize_rules = ('-ships.contractor',)
@@ -110,12 +111,12 @@ class Package(db.Model, SerializerMixin):
 
     def __repr__(self):
         return f'<Package {self.destination}>'
-  
+
 class UserShipAssociation(db.Model, SerializerMixin):
-   __tablename__  = 'user_ship_association'
-   id = db.Column(db.Integer, primary_key=True)
-   user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-   ship_id = db.Column(db.Integer, db.ForeignKey('ships.id'), nullable=False)
+    __tablename__ = 'user_ship_association'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    ship_id = db.Column(db.Integer, db.ForeignKey('ships.id'), nullable=False)
 
 class Transaction(db.Model):
     __tablename__ = 'transactions'
@@ -125,12 +126,12 @@ class Transaction(db.Model):
     category = db.Column(db.String)
     ship_id = db.Column(db.Integer, db.ForeignKey('ships.id'))
     created_at = db.Column(db.DateTime, default=db.func.now())
-    user = db.relationship('User', back_populates='transactions')  
+    user = db.relationship('User', back_populates='transactions')
     ship = db.relationship('Ship', back_populates='transactions')
 
     def __repr__(self):
         return f'<Transaction {self.id}>'
-    
+
     def to_dict(self):
         return {
             'id': self.id,
@@ -144,5 +145,3 @@ class Transaction(db.Model):
                 'name': self.ship.name
             }
         }
-
-Ship.transactions = db.relationship('Transaction', back_populates='ship')
