@@ -1,5 +1,5 @@
 [build]
-  command = "pip install pipenv && pipenv install --deploy --system && pip install sqlalchemy-serializer && cd client && npm install && npm run build"
+  command = "CI=false pip install pipenv && pipenv install --deploy --system && pip install sqlalchemy-serializer && cd client && npm install && npm run build"
   publish = "client/build"
 
 [[redirects]]
