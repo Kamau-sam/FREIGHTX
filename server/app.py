@@ -12,6 +12,10 @@ from models import User, Ship, Port, Transaction, Contractor, Package
 def root():
     return jsonify({"message": "Welcome to FREIGHTX API"}), 200
 
+@app.errorhandler(Exception)
+def handle_exception(e):
+    app.logger.error(f"Unhandled exception: {str(e)}", exc_info=True)
+    return jsonify({"error": "Internal server error"}), 500
 
 @app.route('/ships', methods=['GET'])
 def get_ships():
