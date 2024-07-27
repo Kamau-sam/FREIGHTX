@@ -8,6 +8,11 @@ from config import app, db, api
 
 from models import User, Ship, Port, Transaction, Contractor, Package
 
+@app.route('/', methods=['GET'])
+def root():
+    return jsonify({"message": "Welcome to FREIGHTX API"}), 200
+
+
 @app.route('/ships', methods=['GET'])
 def get_ships():
     ships = Ship.query.all()
